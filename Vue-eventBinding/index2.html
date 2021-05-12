@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="mt-3">
-                        <button class="btn btn-primary" v-on:click="count+=2">Increment</button>&nbsp;
+                        <button class="btn btn-primary" v-on:click="onIncrement()">Increment</button>&nbsp;
                         <button class="btn btn-primary" v-on:click="onDecrement()">Decrement</button>
                         <h2>
                             {{count}}
@@ -27,6 +27,11 @@
                             <label for="">Enter Your Name</label>
                             <input type="text" class="form-control" v-model="name" />
                         </div>
+                        <div class="form-group">
+                            <label for="">Enter Your Last Name</label>
+                            <input type="text" class="form-control" v-model="lastName" />
+                        </div>
+
                         <div>Your Name is : {{fullName}}</div>
                     </div>
                     <div class="mt-3">
