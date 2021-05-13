@@ -10,8 +10,14 @@ const app = Vue.createApp({
         return {
             message: 'Hello World',
             data: commonData,
+            textMessage: '',
         };
-    }
+    },
+    methods: {
+        setText() {
+            this.textMessage = this.$refs.userText.value;
+        },
+    },
 });
 
 app.mount('#app');
@@ -26,7 +32,7 @@ const app2 = Vue.createApp({
         };
     },
     methods: {
-        changeMessage(){
+        changeMessage(){ 
             this.data.commonMessage = 'Changed The Message';
         },
     },
