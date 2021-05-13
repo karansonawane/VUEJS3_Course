@@ -15,6 +15,12 @@
         <div id="app">
             <h2>{{message}}</h2>
             <h3>{{data.commonMessage}}</h3>
+            <div>
+                <input type="text" ref="userText" />
+                <button @click="setText">Set Text</button>
+
+                <div>{{textMessage}}</div>
+            </div>
         </div>
         <hr />
         <h4>App2 Instance</h4>
