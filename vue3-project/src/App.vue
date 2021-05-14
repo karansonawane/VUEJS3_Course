@@ -7,15 +7,31 @@
           <single-post :data="post"></single-post>
           <hr />
         </div>
+        <h2>Lecture</h2>
+        <div v-for="lecture in lectures" :key="lecture.title">
+          <lecture :data="lecture"></lecture>
+          <hr />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Lecture from './components/Lecture.vue';
 export default {
   data() {
     return {
+      lectures :[
+        {
+          title: "Lecture 1",
+          description: "Lecture One Discription",
+        },
+        {
+          title: "Lecture 2",
+          description: "Lecture Two Discription",
+        },
+      ],
       posts: [
         {
           title: "New Post 1",
@@ -29,7 +45,7 @@ export default {
     };
   },
   name: "App",
-  components: {},
+  components: {Lecture},
 };
 </script>
 
