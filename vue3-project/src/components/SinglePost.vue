@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="{'bgcolor-grey' : isactive}" class="p-3">
         <div class="title">{{post.title}}</div>
         <div>{{post.description}}</div>
         <a href="" @click.prevent="changeTitle()">Click to Change the title</a>
@@ -7,15 +7,27 @@
 </template>
 <script>
 export default {
-    props: ['data'],
+    emits: ['title-changed'],
+    props: {
+        data: {
+            type: Object,
+            required: true,
+        },
+        isactive: {
+            type: Number,
+            required: false,
+            default: 1,
+        },
+    },
     data() {
         return{
-            post: this.data,
+            post: { ...this.data },
         };
     },
     methods: {
         changeTitle(){
             this.post.title = 'Changed The Title';
+            this.$emit('title-changed', this.post);
         }
     }
 };
@@ -24,5 +36,8 @@ export default {
 .title{
     color: red;
     font-weight: bold;
+}
+.bgcolor-grey{
+    background-color: #ccc;
 }
 </style>
