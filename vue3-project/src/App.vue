@@ -12,7 +12,7 @@
         <a href="" @click.prevent="changeTitle()">Click to change title</a>
         <h2>Post</h2>
         <div v-for="post in posts" :key="post.title">
-          <single-post :data="post" :isactive="1"></single-post>
+          <single-post :data="post" :isactive="1" @title-changed="onTitleChange"></single-post>
           <hr />
         </div>
         <h2>Lecture</h2>
@@ -49,10 +49,12 @@ export default {
       ],
       posts: [
         {
+          id : 1,
           title: "New Post 1",
           description: "Post Discription 1",
         },
         {
+          id : 2,
           title: "New Post 2",
           description: "Post Discription 2",
         },
@@ -63,6 +65,12 @@ export default {
     selectChange(event) {
       console.log(event.target.value);
     },
+    onTitleChange(event) {
+      let index = this.posts.findIndex(
+        (post) => (post.id = event.id),
+      );
+      this.posts[index].title = event.title;
+    }
   },
   name: "App",
   components: {
