@@ -1,12 +1,14 @@
 <template>
     <div :class="{'bgcolor-grey' : isactive}" class="p-3">
         <div class="title">{{post.title}}</div>
+        <post-user></post-user>
         <div>{{post.description}}</div>
         <a href="" @click.prevent="changeTitle()">Click to Change the title</a>
     </div>
 </template>
 <script>
 import { Post } from '../services/PostService';
+import PostUser from './PostUser';
 export default {
     emits: {
         'title-changed' : (post) => {
@@ -17,17 +19,10 @@ export default {
             return false;
         },
     },
-    props: {
-        data: {
-            type: Object,
-            required: true,
-        },
-        isactive: {
-            type: Number,
-            required: false,
-            default: 1,
-        },
+    components: {
+        PostUser,
     },
+    props: ['data', 'isactive'],
     data() {
         return{
             post: { ...this.data },
