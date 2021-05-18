@@ -3,16 +3,17 @@
     <div class="row">
       <div class="col-md-8">
         <div class="my-4">
-          <select-component
-            data-status="1"
-            id="selectbox"
-            @change="selectChange"
-          ></select-component>
+          <div>{{ user }}</div>
+          <a href="" @click.prevent="changeUser()">Click to change User</a>
         </div>
         <a href="" @click.prevent="changeTitle()">Click to change title</a>
         <h2>Post</h2>
         <div v-for="post in posts" :key="post.title">
-          <single-post :data="post" :isactive="1" @title-changed="onTitleChange"></single-post>
+          <single-post
+            :data="post"
+            :isactive="1"
+            @title-changed="onTitleChange"
+          ></single-post>
           <hr />
         </div>
         <h2>Lecture</h2>
@@ -24,7 +25,9 @@
       <div class="col-md-4 my-4">
         <h3>Latest Post</h3>
         <ul class="list-group">
-          <li class="list-group-item" v-for="post in posts" :key="post.title">{{post.title}}</li>
+          <li class="list-group-item" v-for="post in posts" :key="post.title">
+            {{ post.title }}
+          </li>
         </ul>
       </div>
     </div>
@@ -33,7 +36,6 @@
 
 <script>
 import Lecture from "./components/Lecture.vue";
-import SelectComponent from "./components/SelectComponent.vue";
 export default {
   data() {
     return {
@@ -49,16 +51,22 @@ export default {
       ],
       posts: [
         {
-          id : 1,
+          id: 1,
           title: "New Post 1",
           description: "Post Discription 1",
         },
         {
-          id : 2,
+          id: 2,
           title: "New Post 2",
           description: "Post Discription 2",
         },
       ],
+      user: "Karan Sonawane",
+    };
+  },
+  provide() {
+    return {
+      user: this.user,
     };
   },
   methods: {
@@ -66,16 +74,16 @@ export default {
       console.log(event.target.value);
     },
     onTitleChange(event) {
-      let index = this.posts.findIndex(
-        (post) => (post.id === event.id),
-      );
+      let index = this.posts.findIndex((post) => post.id === event.id);
       this.posts[index].title = event.title;
-    }
+    },
+    changeUser() {
+      this.user = "Updated Karan Sonawane";
+    },
   },
   name: "App",
   components: {
     Lecture,
-    SelectComponent,
   },
 };
 </script>
