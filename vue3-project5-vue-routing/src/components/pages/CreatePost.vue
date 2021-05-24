@@ -1,11 +1,41 @@
 <template>
     <div>
-        Create Post Page
+        <h3>Create Post</h3>
+        <form @submit.prevent="onCreatePost()">
+            <div class="form-group">
+                <label for="">Title</label>
+                <input type="text" class="form-control" v-model="title"/>
+            </div>
+            <div class="form-group">
+                <label for="">Description</label>
+                <textarea class="form-control" v-model="description"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Create Post</button>
+            </div>
+        </form>
     </div>
 </template>
 
 <script>
+import axios from '../../../node_modules/axios';
 export default {
-    
-}
+    data() {
+        return {
+            title: '',
+            description: '',
+        };
+    },
+    methods: {
+        onCreatePost() {
+            axios.post('https://vue-course-9cc29-default-rtdb.firebaseio.com/posts.json', {
+                title: this.title,
+                description: this.description,
+            }).then(response => {
+                console.log(response);
+                this.$router.push('/posts');
+            })
+        }
+    }
+};
 </script>
