@@ -7,6 +7,9 @@
                     <th> Id </th>
                     <th> Title </th>
                     <th> Description </th>
+                    <th>
+                        Action
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -14,6 +17,9 @@
                     <td>{{post.id}}</td>
                     <td>{{post.title}}</td>
                     <td>{{post.description}}</td>
+                    <td>
+                        <router-link :to="`/posts/${post.id}`" class="btn btn-primary">Show Details</router-link>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -31,7 +37,7 @@
         },
         mounted() {
             axios
-                .get(`https://vue-course-9cc29-default-rtdb.firebaseio.com/posts.json`)
+                .get(`posts.json`)
                 .then((response) => {
                     this.formatPosts(response.data);
                 });
