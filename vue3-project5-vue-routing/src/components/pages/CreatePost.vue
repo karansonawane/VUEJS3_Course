@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         onCreatePost() {
-            axios.post('https://vue-course-9cc29-default-rtdb.firebaseio.com/posts.json', {
+            axios.post(`posts.json`, {
                 title: this.title,
                 description: this.description,
             }).then(response => {
