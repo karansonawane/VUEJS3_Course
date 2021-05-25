@@ -18,7 +18,13 @@
             <td>{{ post.title }}</td>
             <td>{{ post.description }}</td>
             <td>
-              <router-link :to="`/posts/${post.id}`" class="btn btn-primary"
+              <router-link
+                :to="{
+                  name: 'single-post',
+                  params: { id: post.id },
+                  query: {sort: 'ascending'},
+                }"
+                class="btn btn-primary"
                 >Show Details</router-link
               >
             </td>
@@ -27,7 +33,7 @@
       </table>
     </div>
     <div class="col-md-4">
-        <router-view></router-view>
+      <router-view></router-view>
     </div>
   </div>
 </template>
