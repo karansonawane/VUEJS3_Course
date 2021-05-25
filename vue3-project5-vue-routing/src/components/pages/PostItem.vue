@@ -42,6 +42,8 @@ export default {
     //     this.getPostDetails();
     //   },
     // );
+
+    console.log(this.$route.query);
     this.getPostDetails();
   },
   methods: {
