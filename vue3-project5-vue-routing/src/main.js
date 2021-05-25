@@ -5,7 +5,10 @@ import Posts from './components/pages/Posts.vue';
 import CreatePost from './components/pages/CreatePost.vue';
 import PostItem from './components/pages/PostItem.vue';
 import NotFound from './components/pages/NotFound.vue';
-import NoPost from './components/pages/NoPost.vue'
+import NoPost from './components/pages/NoPost.vue';
+import PostsFooter from './components/pages/PostsFooter.vue';
+import CreatePostFooter from './components/pages/CreatePostFooter.vue';
+// import TheNavigation from './components/pages/TheNavigation.vue';
 import axios from 'axios';
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -17,7 +20,11 @@ const routes = [
     },
     {   name: 'posts',
         path: '/posts',
-        component: Posts,
+        components: {
+            default: Posts,
+            footer: PostsFooter,
+            // navigation: TheNavigation,
+        },
         children: [
             {
                 path: '',
@@ -35,7 +42,11 @@ const routes = [
     },
     {
         path: '/createpost',
-        component: CreatePost,
+        components: {
+            default: CreatePost,
+            footer: CreatePostFooter,
+            // navigation: TheNavigation,
+        },
     },
     {
         path: '/:NotFound(.*)*', component: NotFound
