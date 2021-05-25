@@ -1,28 +1,44 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import Home from './components/pages/Home.vue';
+// import Home from './components/pages/Home.vue';
 import Posts from './components/pages/Posts.vue';
-import CreatePost from'./components/pages/CreatePost.vue';
+import CreatePost from './components/pages/CreatePost.vue';
 import PostItem from './components/pages/PostItem.vue';
+import NotFound from './components/pages/NotFound.vue';
+import NoPost from './components/pages/NoPost.vue'
 import axios from 'axios';
-import { createRouter, createWebHistory } from 'vue-router'; 
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
     {
-        path: '/', 
-        component: Home
+        path: '/',
+        // component: Home
+        redirect: '/posts',
     },
     {
-        path: '/posts', 
+        path: '/posts',
         component: Posts,
+        children: [
+            {
+                path: '',
+                component: NoPost,
+            },
+            {
+                path: ':id',
+                component: PostItem,
+            },
+        ]
     },
     {
         path: '/posts/:id',
         component: PostItem,
     },
     {
-        path: '/createpost', 
+        path: '/createpost',
         component: CreatePost,
+    },
+    {
+        path: '/:NotFound(.*)*', component: NotFound
     },
 ];
 
