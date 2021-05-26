@@ -11,6 +11,9 @@
         <div class="my-3">
           <the-paragraph></the-paragraph>
         </div>
+        <div class="my-3">
+          <animate-paragraph></animate-paragraph>
+        </div>
       </div>
     </div>
   </div>
@@ -18,8 +21,9 @@
 
 <script>
 import TheParagraph from './components/TheParagraph.vue';
+import AnimateParagraph from './components/AnimateParagraph.vue';
 export default {
-  components: { TheParagraph },
+  components: { TheParagraph, AnimateParagraph },
   data() {
     return {
       animate: false,
@@ -27,6 +31,7 @@ export default {
   },
   component: {
     TheParagraph,
+    AnimateParagraph,
   },
   methods: {
     onAnimateClick() {
