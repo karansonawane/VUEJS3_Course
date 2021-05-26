@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       postDetails: [],
+      id: '',
     };
   },
   mounted() {
