@@ -58,6 +58,12 @@ const router = createRouter({
     routes: routes,
     linkActiveClass: 'active',
 });
+
+router.beforeEach((to, from) => {
+    console.log(to);
+    console.log(from);
+});
+
 axios.defaults.baseURL = 'https://vue-course-9cc29-default-rtdb.firebaseio.com/';
 
 const app = createApp(App);
