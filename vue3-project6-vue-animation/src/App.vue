@@ -8,17 +8,25 @@
             Click me
           </button>
         </div>
+        <div class="my-3">
+          <the-paragraph></the-paragraph>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import TheParagraph from './components/TheParagraph.vue';
 export default {
+  components: { TheParagraph },
   data() {
     return {
       animate: false,
     }
+  },
+  component: {
+    TheParagraph,
   },
   methods: {
     onAnimateClick() {
