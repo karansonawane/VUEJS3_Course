@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <div class="box" :class="{ animate: animate }"></div>
         <div class="mt-3">
           <button class="btn btn-primary" @click.prevent="onAnimateClick()">
@@ -18,22 +18,27 @@
           <animate-paragraph></animate-paragraph>
         </div>
         <div class="my-3">
-            <dialog-modal :open="openDialog">
-              <div>This is Dialog Modal</div>
-              <div class="my-3">
-                <button
-                  class="btn btn-success"
-                  @click.prevent="openDialog = false"
-                >
-                  Okay!
-                </button>
-              </div>
-            </dialog-modal>
+          <dialog-modal :open="openDialog">
+            <div>This is Dialog Modal</div>
+            <div class="my-3">
+              <button
+                class="btn btn-success"
+                @click.prevent="openDialog = false"
+              >
+                Okay!
+              </button>
+            </div>
+          </dialog-modal>
           <div>
             <button class="btn btn-dark" @click.prevent="onOpenDialog()">
               Open Dialog Modal
             </button>
           </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="my-3">
+          <transition-events></transition-events>
         </div>
       </div>
     </div>
@@ -44,9 +49,16 @@
 import TheParagraph from "./components/TheParagraph.vue";
 import AnimateParagraph from "./components/AnimateParagraph.vue";
 import DialogModal from "./components/DialogModal.vue";
-import AnimateButton from './components/AnimateButton.vue';
+import AnimateButton from "./components/AnimateButton.vue";
+import TransitionEvents from "./components/TransitionEvents.vue";
 export default {
-  components: { TheParagraph, AnimateParagraph, DialogModal, AnimateButton },
+  components: {
+    TheParagraph,
+    AnimateParagraph,
+    DialogModal,
+    AnimateButton,
+    TransitionEvents,
+  },
   data() {
     return {
       animate: false,
@@ -58,6 +70,7 @@ export default {
     AnimateParagraph,
     DialogModal,
     AnimateButton,
+    TransitionEvents,
   },
   methods: {
     onAnimateClick() {
