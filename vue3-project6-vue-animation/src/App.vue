@@ -1,114 +1,67 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="box" :class="{ animate: animate }"></div>
-        <div class="mt-3">
-          <button class="btn btn-primary" @click.prevent="onAnimateClick()">
-            Click me
-          </button>
-        </div>
-        <div class="my-3">
-          <animate-button></animate-button>
-        </div>
-        <div class="my-3">
-          <the-paragraph></the-paragraph>
-        </div>
-        <div class="my-3">
-          <animate-paragraph></animate-paragraph>
-        </div>
-        <div class="my-3">
-          <dialog-modal :open="openDialog">
-            <div>This is Dialog Modal</div>
-            <div class="my-3">
-              <button
-                class="btn btn-success"
-                @click.prevent="openDialog = false"
-              >
-                Okay!
-              </button>
-            </div>
-          </dialog-modal>
-          <div>
-            <button class="btn btn-dark" @click.prevent="onOpenDialog()">
-              Open Dialog Modal
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="my-3">
-          <transition-events></transition-events>
-        </div>
-        <div>
-          <list-data></list-data>
-        </div>
-      </div>
+  <div>
+    <div class="mb-3">
+      <button @click.prevent="onAdd()">Add</button>
+      <button @click.prevent="onRemove()">Remove</button>
+      <button @click.prevent="onShuffle()">Shuffle</button>
     </div>
+
+    <transition-group tag="div" name="list">
+      <span class="mx-1 list-item" v-for="number in numbers" :key="number">{{
+        number
+      }}</span>
+    </transition-group>
   </div>
 </template>
 
 <script>
-import TheParagraph from "./components/TheParagraph.vue";
-import AnimateParagraph from "./components/AnimateParagraph.vue";
-import DialogModal from "./components/DialogModal.vue";
-import AnimateButton from "./components/AnimateButton.vue";
-import TransitionEvents from "./components/TransitionEvents.vue";
-import ListData from './components/ListData.vue';
 export default {
-  components: {
-    TheParagraph,
-    AnimateParagraph,
-    DialogModal,
-    AnimateButton,
-    TransitionEvents,
-    ListData,
-  },
   data() {
     return {
-      animate: false,
-      openDialog: false,
+      numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      nextNum: 10,
     };
   },
-  component: {
-    TheParagraph,
-    AnimateParagraph,
-    DialogModal,
-    AnimateButton,
-    TransitionEvents,
-  },
   methods: {
-    onAnimateClick() {
-      this.animate = true;
+    onAdd() {
+      this.numbers.push(this.nextNum);
+      this.nextNum++;
     },
-    onOpenDialog() {
-      this.openDialog = true;
+    onRemove() {
+      let randomIndex = Math.floor(Math.random() * this.numbers.length);
+      this.numbers = this.numbers.filter(
+        (number) => number !== this.numbers[randomIndex]
+      );
+    },
+    onShuffle() {
+      this.numbers.reverse();
     },
   },
 };
 </script>
 
-<style>
-.box {
-  width: 100px;
-  height: 100px;
-  border: 1px solid rebeccapurple;
-  background: rebeccapurple;
-  /* transition: transform 0.5s; */
+<style scoped>
+
+.list-item{
+    display: inline-block;
 }
-.animate {
-  /* transform: translateX(150px); */
-  animation: animate-box 1s;
+
+.list-enter-from,
+.list-leave-to{
+    opacity: 0;
+    transform: translateY(30px);
 }
-@keyframes animate-box {
-  0% {
-    transform: translateX(0px) scaleX(1);
-  }
-  50% {
-    transform: translateX(100px) scaleX(1.5);
-  }
-  100% {
-    transform: translateX(200px) scaleX(1);
-  }
+
+.list-enter-to,
+.list-leave-from{
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+.list-enter-active{
+    transition: all 1s ease-in;
+}
+.list-leave-active{
+    transition: all 1s ease-out;
 }
 </style>
