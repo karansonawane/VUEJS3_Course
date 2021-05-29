@@ -40,6 +40,9 @@
         <div class="my-3">
           <transition-events></transition-events>
         </div>
+        <div>
+          <list-data></list-data>
+        </div>
       </div>
     </div>
   </div>
@@ -51,6 +54,7 @@ import AnimateParagraph from "./components/AnimateParagraph.vue";
 import DialogModal from "./components/DialogModal.vue";
 import AnimateButton from "./components/AnimateButton.vue";
 import TransitionEvents from "./components/TransitionEvents.vue";
+import ListData from './components/ListData.vue';
 export default {
   components: {
     TheParagraph,
@@ -58,6 +62,7 @@ export default {
     DialogModal,
     AnimateButton,
     TransitionEvents,
+    ListData,
   },
   data() {
     return {
