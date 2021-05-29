@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     onAdd() {
-      this.numbers.push(this.nextNum);
+      this.numbers.unshift(this.nextNum);
       this.nextNum++;
     },
     onRemove() {
@@ -63,5 +63,9 @@ export default {
 }
 .list-leave-active{
     transition: all 1s ease-out;
+    position: absolute;
+}
+.list-move{
+    transition: transform 1s ease;
 }
 </style>
