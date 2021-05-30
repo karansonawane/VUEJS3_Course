@@ -13,14 +13,20 @@ export default {
         }
     },
     methods: {
+        // onIncrement() {
+        //     this.$store.commit({
+        //         type: 'increment',
+        //         value: 3,
+        //     });
+        // } ****************** 1st method ****************
         onIncrement() {
-            this.$store.state.count++;
-        }
+            this.$store.commit('increment', { value: 2 });
+        } /* *********** 2nd Method ************* */
     },
     computed: {
         count() {
             return this.$store.state.count;
         }
-    }
+    },
 }
 </script>
