@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div>{{ $store.state.count }}</div>
+        <div>{{ count }}</div>
+        <button @click.prevent="onIncrement()">Increment</button>
     </div>
 </template>
 
@@ -9,6 +10,16 @@ export default {
     data() {
         return {
             
+        }
+    },
+    methods: {
+        onIncrement() {
+            this.$store.state.count++;
+        }
+    },
+    computed: {
+        count() {
+            return this.$store.state.count;
         }
     }
 }
