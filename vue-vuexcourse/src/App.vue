@@ -5,6 +5,7 @@
   <h3>Vuex Counter</h3>
   {{ count }}
 </div>
+<button @click.prevent="onIncrement()">Increment</button>
 </div>
 </template>
 
@@ -20,6 +21,14 @@ export default {
   },
   components: {
     Counter,
+  },
+  methods: {
+    onIncrement() {
+      return this.$store.commit({
+        type: 'increment',
+        value: 4,
+      });
+    }
   }
 }
 </script>
