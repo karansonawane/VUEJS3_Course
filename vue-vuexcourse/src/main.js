@@ -29,6 +29,11 @@ const store = createStore({
         doneTodosListCount(state) {
             return state.todos.filter((todo) => todo.done).length;
         }
+    },
+    actions: {
+        increment(context, payload){
+            context.commit('increment', payload);
+        }
     }
 })
 const app = createApp(App);
