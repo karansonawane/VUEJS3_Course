@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     onIncrement() {
-      return this.$store.commit({
+      return this.$store.dispatch({
         type: "increment",
         value: 4,
       });
