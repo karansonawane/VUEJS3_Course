@@ -20,6 +20,12 @@ const store = createStore({
         }
     },
     getters: {
+        getTodoById: (state) => (id) => {
+            return state.todos.find(todo => todo.id === id);
+        },
+        doneTodos(state) {
+            return state.todos.filter((todo) => todo.done);
+        },
         doneTodosListCount(state) {
             return state.todos.filter((todo) => todo.done).length;
         }
