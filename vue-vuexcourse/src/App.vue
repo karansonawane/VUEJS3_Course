@@ -5,7 +5,7 @@
       <h3>Vuex Counter</h3>
       {{ count }}
     </div>
-    <button @click.prevent="onIncrement()">Increment</button>
+    <button @click.prevent="increment({ value: 4 })">Increment</button>
     <div>
       <todos-list></todos-list>
     </div>
@@ -16,28 +16,39 @@
 <script>
 import Counter from "./components/Counter.vue";
 import TodosList from "./components/TodosList.vue";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "App",
   computed: {
-    count() {
-      return this.$store.state.count;
-    },
-    doneListCount() {
-      return this.$store.getters.doneTodosListCount;
-    },
+    ...mapState({
+      count: (state) => state.count,
+    }),
+
+    ...mapGetters({
+      doneListCount: "doneTodosListCount",
+    }),
   },
   components: {
     Counter,
     TodosList,
   },
   methods: {
-    onIncrement() {
-      return this.$store.dispatch({
-        type: "increment",
-        value: 4,
-      });
-    },
+    ...mapActions({
+      increment: "increment",
+    }),
+
+    ...mapMutations({
+      inc: "increment",
+    }),
+
+    // onIncrement() {
+    //   return this.$store.dispatch({
+    //     type: "increment",
+    //     value: 4,
+    //   });
+    // },********* Insted of this function we used above ...mapAction function *****************
+
     // getDoneListCount() {
     //   return this.$store.state.todos.filter((todo) => todo.done).length;
     // },  ***************** Insted of this method, we used above computed property "doneListCount()""  *******************
