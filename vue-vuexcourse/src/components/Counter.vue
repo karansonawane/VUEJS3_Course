@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     ...mapState({
-      count: (state) => state.count,
+      count: (state) => state.counter.count,
     }),
     // count() {
     //   return this.$store.state.count;
