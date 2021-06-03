@@ -22,7 +22,7 @@ export default {
   name: "App",
   computed: {
     ...mapState({
-      count: (state) => state.count,
+      count: (state) => state.counter.count,
     }),
 
     ...mapGetters({
