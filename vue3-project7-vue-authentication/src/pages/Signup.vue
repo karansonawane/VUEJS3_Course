@@ -52,11 +52,15 @@ export default {
       if ("email" in this.errors || "password" in this.errors) {
         return false;
       }
+      //make spinner true
+
+      //signup registration
       this.signup({ email: this.email, password: this.password }).catch(
         (error) => {
           this.error = error;
         }
       );
+      //make spinner false
     },
   },
 };
