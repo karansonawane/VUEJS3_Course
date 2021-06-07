@@ -6,6 +6,7 @@
           <h3>Signup</h3>
           <hr />
         </div>
+        <div class="alert alert-danger" v-if="error">{{ error }}</div>
         <form @submit.prevent="onSignup()">
           <div class="form-group">
             <label for="">Email</label>
@@ -30,27 +31,32 @@
 
 <script>
 import SignupValidations from "../services/SignupValidations";
-import {mapActions} from 'vuex';
-import {SIGNUP_ACTION} from '../store/storeconstants';
+import { mapActions } from "vuex";
+import { SIGNUP_ACTION } from "../store/storeconstants";
 export default {
   data() {
     return {
       email: "",
       password: "",
       errors: "",
+      error: "",
     };
   },
   methods: {
-    ...mapActions('auth',{
+    ...mapActions("auth", {
       signup: SIGNUP_ACTION,
     }),
     onSignup() {
       let validations = new SignupValidations(this.email, this.password);
       this.errors = validations.checkValidations();
-      if ('email' in this.errors || 'password' in this.errors) {
+      if ("email" in this.errors || "password" in this.errors) {
         return false;
       }
-      this.signup({email: this.email, password: this.password});
+      this.signup({ email: this.email, password: this.password }).catch(
+        (error) => {
+          this.error = error;
+        }
+      );
     },
   },
 };
