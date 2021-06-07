@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { SIGNUP_ACTION } from '../../storeconstants';
+import { SET_USER_TOKEN_DATA_MUTATION, SIGNUP_ACTION } from '../../storeconstants';
 
 export default {
-    async [SIGNUP_ACTION](_, payload) {
+    async [SIGNUP_ACTION](context, payload) {
         let postData = {
             email: payload.email,
             password: payload.password,
@@ -12,7 +12,15 @@ export default {
             postData,
         );
 
-        console.log(response);
+        if (response.status === 200) {
+            context.commit(SET_USER_TOKEN_DATA_MUTATION), {
+                email: response.data.email,
+                token: response.data.token,
+                expiresIn: response.data.expiresIn,
+                refreshToken: response.data.refreshToken,
+                userId: response.data.localId
+            }
+        }
     },
 
 };
