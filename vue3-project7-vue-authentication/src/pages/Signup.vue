@@ -31,8 +31,11 @@
 
 <script>
 import SignupValidations from "../services/SignupValidations";
-import { mapActions } from "vuex";
-import { SIGNUP_ACTION } from "../store/storeconstants";
+import { mapActions, mapMutations } from "vuex";
+import {
+  LOADING_SPINNER_SHOW_MUTATION,
+  SIGNUP_ACTION,
+} from "../store/storeconstants";
 export default {
   data() {
     return {
@@ -46,6 +49,10 @@ export default {
     ...mapActions("auth", {
       signup: SIGNUP_ACTION,
     }),
+
+    ...mapMutations({
+      showLoading: LOADING_SPINNER_SHOW_MUTATION,
+    }),
     onSignup() {
       let validations = new SignupValidations(this.email, this.password);
       this.errors = validations.checkValidations();
@@ -53,14 +60,16 @@ export default {
         return false;
       }
       //make spinner true
-
+      this.showLoading(true);
       //signup registration
       this.signup({ email: this.email, password: this.password }).catch(
         (error) => {
           this.error = error;
+          this.showLoading(false);
         }
       );
       //make spinner false
+      this.showLoading(false);
     },
   },
 };
