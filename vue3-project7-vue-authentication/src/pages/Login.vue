@@ -6,15 +6,20 @@
           <h3>Login</h3>
           <hr />
         </div>
+        <div class="alert alert-danger" v-if="error">{{ error }}</div>
         <form @submit.prevent="onLogin()">
           <div class="form-group">
             <label for="">Email</label>
-            <input type="text" class="form-control" v-model="email" />
+            <input type="text" class="form-control" v-model.trim="email" />
             <div class="error" v-if="errors.email">{{ errors.email }}</div>
           </div>
           <div class="form-group">
             <label for="">Password</label>
-            <input type="password" class="form-control" v-model="password" />
+            <input
+              type="password"
+              class="form-control"
+              v-model.trim="password"
+            />
             <div class="error" v-if="errors.password">
               {{ errors.password }}
             </div>
@@ -30,16 +35,25 @@
 
 <script>
 import SignupValidations from "../services/SignupValidations";
+import { LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION } from "../store/storeconstants";
+import { mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
       email: "",
       password: "",
       errors: "",
+      error: "",
     };
   },
   methods: {
-    onLogin() {
+    ...mapActions("auth", {
+      login: LOGIN_ACTION,
+    }),
+    ...mapMutations({
+      showLoading: LOADING_SPINNER_SHOW_MUTATION
+    }),
+    async onLogin() {
       //check the validations
 
       let validations = new SignupValidations(this.email, this.password);
@@ -47,6 +61,18 @@ export default {
       if (this.errors.length) {
         return false;
       }
+      this.error = '';
+
+      this.showLoading(true);
+      //Login check
+      try {
+        await this.login({ email: this.email, password: this.password });
+      } catch (e) {
+        this.error = e;
+        this.showLoading(false);
+      }
+
+      this.showLoading(false);
     },
   },
 };
