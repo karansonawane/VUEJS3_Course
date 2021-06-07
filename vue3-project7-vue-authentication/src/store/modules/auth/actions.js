@@ -1,4 +1,5 @@
 import axios from 'axios';
+import SignupValidations from '../../../services/SignupValidations';
 import { SET_USER_TOKEN_DATA_MUTATION, SIGNUP_ACTION } from '../../storeconstants';
 
 export default {
@@ -8,9 +9,15 @@ export default {
             password: payload.password,
             returnSecureToken: true,
         };
-        let response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC01b23UF7AzSNlsY_q8DH8ZHc3ucv6g5k`,
-            postData,
-        );
+        let response = '';
+        try {
+            response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC01b23UF7AzSNlsY_q8DH8ZHc3ucv6g5k`,
+                postData,
+            );
+        } catch (err) {
+            let errorMessage = SignupValidations.getErrorMessageFromCode(err.response.data.error.errors[0].message,);
+            throw errorMessage;
+        }
 
         if (response.status === 200) {
             context.commit(SET_USER_TOKEN_DATA_MUTATION), {
