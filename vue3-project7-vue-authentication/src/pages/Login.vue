@@ -35,14 +35,17 @@
 
 <script>
 import SignupValidations from "../services/SignupValidations";
-import { LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION } from "../store/storeconstants";
+import {
+  LOADING_SPINNER_SHOW_MUTATION,
+  LOGIN_ACTION,
+} from "../store/storeconstants";
 import { mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
       email: "",
       password: "",
-      errors: "",
+      errors: [],
       error: "",
     };
   },
@@ -51,7 +54,7 @@ export default {
       login: LOGIN_ACTION,
     }),
     ...mapMutations({
-      showLoading: LOADING_SPINNER_SHOW_MUTATION
+      showLoading: LOADING_SPINNER_SHOW_MUTATION,
     }),
     async onLogin() {
       //check the validations
@@ -61,7 +64,7 @@ export default {
       if (this.errors.length) {
         return false;
       }
-      this.error = '';
+      this.error = "";
 
       this.showLoading(true);
       //Login check
@@ -73,6 +76,7 @@ export default {
       }
 
       this.showLoading(false);
+      this.$router.push("/posts");
     },
   },
 };
