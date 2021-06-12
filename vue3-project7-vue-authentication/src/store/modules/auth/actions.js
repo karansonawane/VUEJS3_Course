@@ -1,8 +1,18 @@
 import axios from 'axios';
 import SignupValidations from '../../../services/SignupValidations';
-import { LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION, SET_USER_TOKEN_DATA_MUTATION, SIGNUP_ACTION } from '../../storeconstants';
+import { LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION, LOGOUT_ACTION, SET_USER_TOKEN_DATA_MUTATION, SIGNUP_ACTION } from '../../storeconstants';
 
 export default {
+
+    [LOGOUT_ACTION](context) {
+        context.commit(SET_USER_TOKEN_DATA_MUTATION, {
+            email: null,
+            token: null,
+            expiresIn: null,
+            refreshToken: null,
+            userId: null,
+        });
+    },
 
     async [LOGIN_ACTION](context, payload) {
         let postData = {
@@ -29,7 +39,7 @@ export default {
                 expiresIn: response.data.expiresIn,
                 refreshToken: response.data.refreshToken,
                 userId: response.data.localId,
-            })
+            });
         }
     },
 
