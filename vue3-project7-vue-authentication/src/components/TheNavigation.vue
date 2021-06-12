@@ -27,6 +27,9 @@
           <li class="nav-item" v-if="isAuthenticated">
             <router-link class="nav-link" to="/posts">Posts</router-link>
           </li>
+          <li class="nav-item" v-if="isAuthenticated">
+            <a href="#" class="nav-link" @click.prevent="onLogout()">Logout</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -34,13 +37,25 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { IS_USER_AUTHENTICATE_GETTERS } from "../store/storeconstants";
+import { mapGetters, mapActions } from "vuex";
+import {
+  IS_USER_AUTHENTICATE_GETTERS,
+  LOGOUT_ACTION,
+} from "../store/storeconstants";
 export default {
   computed: {
     ...mapGetters("auth", {
       isAuthenticated: IS_USER_AUTHENTICATE_GETTERS,
     }),
+  },
+  methods: {
+    ...mapActions("auth", {
+      logout: LOGOUT_ACTION,
+    }),
+    onLogout() {
+      this.logout();
+      this.$router.replace("/login");
+    },
   },
 };
 </script>
