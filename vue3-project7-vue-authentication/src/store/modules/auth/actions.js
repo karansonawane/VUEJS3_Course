@@ -23,13 +23,13 @@ export default {
         }
 
         if (response.status === 200) {
-            context.commit(SET_USER_TOKEN_DATA_MUTATION), {
+            context.commit(SET_USER_TOKEN_DATA_MUTATION, {
                 email: response.data.email,
-                token: response.data.token,
+                token: response.data.idToken,
                 expiresIn: response.data.expiresIn,
                 refreshToken: response.data.refreshToken,
-                userId: response.data.localId
-            }
+                userId: response.data.localId,
+            })
         }
     },
 
@@ -56,13 +56,13 @@ export default {
         // context.commit(LOADING_SPINNER_SHOW_MUTATION, false, { root: true });
 
         if (response.status === 200) {
-            context.commit(SET_USER_TOKEN_DATA_MUTATION), {
+            context.commit(SET_USER_TOKEN_DATA_MUTATION, {
                 email: response.data.email,
-                token: response.data.token,
+                token: response.data.idToken,
                 expiresIn: response.data.expiresIn,
                 refreshToken: response.data.refreshToken,
-                userId: response.data.localId
-            }
+                userId: response.data.localId,
+            })
         }
     },
 
