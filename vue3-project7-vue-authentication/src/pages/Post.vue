@@ -10,13 +10,11 @@
         </tr>
       </thead>
       <tbody>
-        <thead>
-          <tr v-for="post in posts" :key="post.id">
-            <td>{{ post.id }}</td>
-            <td>{{ post.title }}</td>
-            <td>{{ post.description }}</td>
-          </tr>
-        </thead>
+        <tr v-for="post in posts" :key="post.id">
+          <td>{{ post.id }}</td>
+          <td>{{ post.title }}</td>
+          <td>{{ post.description }}</td>
+        </tr>
       </tbody>
     </table>
   </div>
