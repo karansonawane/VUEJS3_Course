@@ -18,6 +18,7 @@
 import TheNavigation from "./components/TheNavigation.vue";
 import TheLoader from "./components/TheLoader.vue";
 import { mapState } from "vuex";
+import { AUTO_LOGIN_ACTION } from "./store/storeconstants";
 export default {
   name: "App",
   computed: {
@@ -28,6 +29,9 @@ export default {
   components: {
     TheNavigation,
     TheLoader,
+  },
+  created() {
+    this.$store.dispatch(`auth/${AUTO_LOGIN_ACTION}`);
   },
 };
 </script>
