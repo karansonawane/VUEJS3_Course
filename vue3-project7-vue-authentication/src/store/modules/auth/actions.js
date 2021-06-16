@@ -1,7 +1,8 @@
 import axios from 'axios';
 import SignupValidations from '../../../services/SignupValidations';
-import { AUTH_ACTION, AUTO_LOGIN_ACTION, LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION, LOGOUT_ACTION, SET_USER_TOKEN_DATA_MUTATION, SIGNUP_ACTION } from '../../storeconstants';
+import { AUTH_ACTION, AUTO_LOGIN_ACTION, AUTO_LOGOUT_ACTION, LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION, LOGOUT_ACTION, SET_AUTO_LOGOUT_MUTATION, SET_USER_TOKEN_DATA_MUTATION, SIGNUP_ACTION } from '../../storeconstants';
 
+let timer = '';
 export default {
 
     [LOGOUT_ACTION](context) {
@@ -13,6 +14,14 @@ export default {
             userId: null,
         });
         localStorage.removeItem('userData');
+        if (timer) {
+            clearTimeout(timer);
+        }
+    },
+
+    [AUTO_LOGOUT_ACTION](context) {
+        context.dispatch(LOGOUT_ACTION);
+        context.commit(SET_AUTO_LOGOUT_MUTATION);
     },
 
     async [LOGIN_ACTION](context, payload) {
@@ -30,10 +39,20 @@ export default {
     },
 
     [AUTO_LOGIN_ACTION](context) {
-        let userData = localStorage.getItem('userData');
-        if (userData) {
-            context.commit(SET_USER_TOKEN_DATA_MUTATION,
-                JSON.parse(userData),
+        let userDataString = localStorage.getItem('userData');
+        if (userDataString) {
+            let userData = JSON.parse(userDataString);
+            let expirationTime = userData.expiresIn - new Date().getTime();
+            if (expirationTime < 10000) {
+                //you can get the token with refresh token
+                //do autologout
+                context.dispatch(AUTO_LOGOUT_ACTION);
+            } else {
+                timer = setTimeout(() => {
+                    context.dispatch(AUTO_LOGOUT_ACTION);
+                }, expirationTime);
+            }
+            context.commit(SET_USER_TOKEN_DATA_MUTATION, userData
             );
         }
     },
@@ -55,10 +74,17 @@ export default {
         }
 
         if (response.status === 200) {
+            let expirationTime = +10 * 1000;
+
+            timer = setTimeout(() => {
+                context.dispatch(AUTO_LOGOUT_ACTION);
+            }, expirationTime);
+
             let tokenData = {
                 email: response.data.email,
                 token: response.data.idToken,
-                expiresIn: response.data.expiresIn,
+                // expiresIn: response.data.expiresIn,
+                expiresIn: expirationTime,
                 refreshToken: response.data.refreshToken,
                 userId: response.data.localId,
             }
