@@ -1,10 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from './pages/Home.vue';
-import Login from './pages/Login.vue';
-import Signup from './pages/Signup.vue';
-import Post from './pages/Post.vue';
+// import Home from './pages/Home.vue';
+// import Login from './pages/Login.vue';
+// import Signup from './pages/Signup.vue';
+// import Post from './pages/Post.vue';
 import store from './store/store';
 import { IS_USER_AUTHENTICATE_GETTERS } from './store/storeconstants';
+
+const Login = () => import(/* webpackChunkName: "Login" */'./pages/Login.vue');
+const Signup = () => import('./pages/Signup.vue');
+const Home = () => import('./pages/Home.vue');
+const Post = () => import('./pages/Post.vue');    /* Dynamically imported */
 
 const routes = [
     {
