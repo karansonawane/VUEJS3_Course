@@ -3,35 +3,40 @@
     <div>My Full Name is : {{userName}}</div>
 
     <h3>User Details</h3>
-    <div>Name : {{userDetails.name}}</div>
-    <div>Age : {{userDetails.age}}</div>
+    <div>Name : {{name}}</div>
+    <div>Age : {{age}}</div>
   </div>
 </template>
 
 <script>
-  import { ref } from 'vue';
+  import { ref, reactive, isReactive, isRef, toRefs } from 'vue';
   export default {
 
     setup() {
       let name = ref('Karan Sonawane');
 
-      let userDetails = ref({
+      let userDetails = reactive({
         name: 'Karan',
         age: 22,
       });
 
+      console.log(isRef(name));
+      console.log(isReactive(userDetails));
+
       setTimeout(() => {
-        console.log('executing time out in setup');
-        console.log(name);
+        // console.log('executing time out in setup');
+        // console.log(name);
         name.value = 'Karan Dinkar Sonawane';
-        userDetails.value.name = 'Changed Name';
-        userDetails.value.age = 22;
+        userDetails.name = 'Changed Name';
+        userDetails.age = 22;
       }, 3000);
+
+      let userRefs = toRefs(userDetails);
+
       return {
         userName: name,
-        name: userDetails.value.name,
-        age: userDetails.value.age,
-        userDetails: userDetails,
+        name: userRefs.name,
+        age: userRefs.age,
       }
     },
     // name: 'App',
