@@ -3,13 +3,14 @@
     <div>My Full Name is : {{userName}}</div>
 
     <h3>User Details</h3>
-    <div>Name : {{name}}</div>
-    <div>Age : {{age}}</div>
+    <div>Name : {{userDetails.name}}</div>
+    <div>Age : {{userDetails.age}}</div>
+    <button @click.prevent="changeName()">Change Name</button>
   </div>
 </template>
 
 <script>
-  import { ref, reactive, isReactive, isRef, toRefs } from 'vue';
+  import { ref, reactive } from 'vue';
   export default {
 
     setup() {
@@ -20,23 +21,27 @@
         age: 22,
       });
 
-      console.log(isRef(name));
-      console.log(isReactive(userDetails));
+      function changeName() {
+        userDetails.name = 'Karan Dinkar Sonawane';
+      }
 
-      setTimeout(() => {
-        // console.log('executing time out in setup');
-        // console.log(name);
-        name.value = 'Karan Dinkar Sonawane';
-        userDetails.name = 'Changed Name';
-        userDetails.age = 22;
-      }, 3000);
+      // console.log(isRef(name));
+      // console.log(isReactive(userDetails));
 
-      let userRefs = toRefs(userDetails);
+      // setTimeout(() => {
+      //   // console.log('executing time out in setup');
+      //   // console.log(name);
+      //   name.value = 'Karan Dinkar Sonawane';
+      //   userDetails.name = 'Changed Name';
+      //   userDetails.age = 22;
+      // }, 3000);
+
+      // let userRefs = toRefs(userDetails);
 
       return {
         userName: name,
-        name: userRefs.name,
-        age: userRefs.age,
+        userDetails,
+        changeName,
       }
     },
     // name: 'App',
